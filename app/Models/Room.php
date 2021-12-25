@@ -10,4 +10,9 @@ class Room extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
+
+    public function submissions()
+    {
+        return $this->belongsToMany(Submission::class);
+    }
 }

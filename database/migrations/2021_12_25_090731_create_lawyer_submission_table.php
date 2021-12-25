@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLawyearSubmissionTable extends Migration
+class CreateLawyerSubmissionTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateLawyearSubmissionTable extends Migration
      */
     public function up()
     {
-        Schema::create('lawyear_submission', function (Blueprint $table) {
+        Schema::create('lawyer_submission', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lawyear_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('lawyer_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('submission_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
@@ -28,6 +28,6 @@ class CreateLawyearSubmissionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lawyear_submission');
+        Schema::dropIfExists('lawyer_submission');
     }
 }

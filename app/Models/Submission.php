@@ -20,4 +20,14 @@ class Submission extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function lawyers()
+    {
+        return $this->belongsToMany(Lawyer::class);
+    }
+
+    public function rooms()
+    {
+        return $this->belongsToMany(Room::class);
+    }
 }

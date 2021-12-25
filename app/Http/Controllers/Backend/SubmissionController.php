@@ -105,6 +105,18 @@ class SubmissionController extends Controller
             ]);
         endif;
 
+        if ($request->status === 'success') :
+            $data['number'] = $request->number;
+            $data['timetable'] = $request->timetable;
+            $data['time'] = $request->time;
+            $data['father_name'] = $request->father_name;
+            $data['defendant_name'] = $request->defendant_name;
+            $submission->update($data);
+            $submission->lawyers()->attach($request->petugas);
+            $submission->rooms()->attach($request->room);
+        endif;
+
+
         $status = $submission->update([
             'status' => $request->status
         ]);

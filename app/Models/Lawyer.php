@@ -15,4 +15,9 @@ class Lawyer extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function submissions()
+    {
+        return $this->belongsToMany(Submission::class);
+    }
 }

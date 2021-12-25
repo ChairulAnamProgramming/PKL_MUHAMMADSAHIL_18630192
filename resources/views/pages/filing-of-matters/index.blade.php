@@ -128,69 +128,83 @@
                                         <div class="modal fade" id="modelJadwal-{{ $submission->id }}" tabindex="-1"
                                             role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title">
-                                                            Buat Jadwal {{ $submission->filing_of_matter->name }}</h5>
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
+                                                <form action="{{ route('submission.update', $submission->id) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">
+                                                                Buat Jadwal {{ $submission->filing_of_matter->name }}
+                                                            </h5>
+                                                            <button type="button" class="close"
+                                                                data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="form-label-wrapper">
+                                                                <label for="number"
+                                                                    class="form-label">No.Perkara</label>
+                                                                <input type="text" name="number" id="number"
+                                                                    value="{{ $submission->number }}/PDT.{{ $submission->filing_of_matter->name }}/{{ date('Y') }}/NEGARA"
+                                                                    class="form-input" readonly>
+                                                                <input type="hidden" name="status" value="success">
+                                                            </div>
+                                                            <div class="form-label-wrapper">
+                                                                <label for="timetable"
+                                                                    class="form-label">Tanggal</label>
+                                                                <input type="date" name="timetable" id="timetable"
+                                                                    value="{{ date('Y-m-d') }}" class="form-input">
+                                                            </div>
+                                                            <div class="form-label-wrapper">
+                                                                <label for="time" class="form-label">Waktu</label>
+                                                                <input type="time" name="time" id="time" value=""
+                                                                    class="form-input">
+                                                            </div>
+                                                            <div class="form-label-wrapper">
+                                                                <label for="petugas" class="form-label">Petugas</label>
+                                                                <select name="petugas[]" id="petugas" class="form-input"
+                                                                    multiple>
+                                                                    @foreach ($lawyers as $lawyer)
+                                                                        <option value="{{ $lawyer->id }}">
+                                                                            {{ $lawyer->user->name }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-label-wrapper">
+                                                                <label for="room" class="form-label">Ruangan</label>
+                                                                <select class="form-input" name="room[]" multiple>
+                                                                    @foreach ($rooms as $room)
+                                                                        <option value="{{ $room->id }}">
+                                                                            {{ $room->name }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-label-wrapper">
+                                                                <label for="father_name" class="form-label">Nama
+                                                                    Ayah</label>
+                                                                <input type="text" name="father_name" id="father_name"
+                                                                    value="" class="form-input">
+                                                            </div>
+                                                            <div class="form-label-wrapper">
+                                                                <label for="defendant_name" class="form-label">
+                                                                    Nama Tergugat
+                                                                </label>
+                                                                <input type="text" name="defendant_name" id="defendant_name"
+                                                                    placeholder="Isi nama tergugat setelah itu isikan BIN/BINTI cth: user bin user"
+                                                                    class="form-input">
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-outline-secondary"
+                                                                data-dismiss="modal">Tutup</button>
+                                                            <button class="btn btn-primary">
+                                                                Buat Jadwal
+                                                            </button>
+                                                        </div>
                                                     </div>
-                                                    <div class="modal-body">
-                                                        <div class="form-label-wrapper">
-                                                            <label for="number" class="form-label">No.Perkara</label>
-                                                            <input type="text" name="number" id="number"
-                                                                value="{{ $submission->number }}/PDT.{{ $submission->filing_of_matter->name }}/{{ date('Y') }}/NEGARA"
-                                                                class="form-input" readonly>
-                                                        </div>
-                                                        <div class="form-label-wrapper">
-                                                            <label for="timetable" class="form-label">Tanggal</label>
-                                                            <input type="date" name="timetable" id="timetable"
-                                                                value="{{ date('Y-m-d') }}" class="form-input">
-                                                        </div>
-                                                        <div class="form-label-wrapper">
-                                                            <label for="time" class="form-label">Waktu</label>
-                                                            <input type="time" name="time" id="time" value=""
-                                                                class="form-input">
-                                                        </div>
-                                                        <div class="form-label-wrapper">
-                                                            <label for="petugas" class="form-label">Petugas</label>
-                                                            <select name="petugas" id="petugas" class="form-input"
-                                                                multiple>
-                                                                @foreach ($lawyers as $lawyer)
-                                                                    <option value="{{ $lawyer->id }}">
-                                                                        {{ $lawyer->user->name }}</option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-                                                        <div class="form-label-wrapper">
-                                                            <label for="room" class="form-label">Ruangan</label>
-                                                            <select class="form-input" multiple>
-                                                                @foreach ($rooms as $room)
-                                                                    <option value="{{ $room->id }}">
-                                                                        {{ $room->name }}</option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-                                                        <div class="form-label-wrapper">
-                                                            <label for="time" class="form-label">Nama Ayah</label>
-                                                            <input type="text" name="time" id="time" value=""
-                                                                class="form-input">
-                                                        </div>
-                                                        <div class="form-label-wrapper">
-                                                            <label for="time" class="form-label">Nama Tergugat</label>
-                                                            <input type="text" name="time" id="time"
-                                                                placeholder="Isi nama tergugat setelah itu isikan BIN/BINTI cth: user bin user"
-                                                                class="form-input">
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-outline-secondary"
-                                                            data-dismiss="modal">Tutup</button>
-                                                        <button type="button" class="btn btn-primary">Buat Jadwal</button>
-                                                    </div>
-                                                </div>
+                                                </form>
                                             </div>
                                         </div>
                                     @endif
