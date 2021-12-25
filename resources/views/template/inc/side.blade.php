@@ -53,7 +53,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('filing-of-matters.index') }}">
+                    <a href="{{ route('report.index') }}">
                         <span class="icon document" aria-hidden="true"></span>
                         Laporan
                     </a>

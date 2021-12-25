@@ -8,6 +8,7 @@ use App\Http\Controllers\Backend\PlaintiffController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Backend\FilingOfMetterController;
 use App\Http\Controllers\Backend\FilingOfMattersController;
+use App\Http\Controllers\Backend\ReportController;
 use App\Http\Controllers\Backend\RoomController;
 use App\Http\Controllers\Backend\SubmissionController;
 use Illuminate\Support\Facades\Route;
@@ -40,6 +41,8 @@ Route::group(['middleware' => 'auth:sanctum', 'verified'], function () {
     Route::resource('/submission', SubmissionController::class);
 
     Route::resource('/room', RoomController::class);
+
+    Route::get('/report', [ReportController::class, 'index'])->name('report.index');
 });
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
