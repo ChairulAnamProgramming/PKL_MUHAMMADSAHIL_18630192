@@ -30,12 +30,53 @@
                 </thead>
                 <tbody>
                     @foreach ($submissions as $submission)
+
+                        @switch($submission->status)
+                            @case('proses')
+                                @php
+                                    $valueStatus = 25;
+                                @endphp
+                            @break
+                            @case('payment')
+                                @php
+                                    $valueStatus = 50;
+                                @endphp
+
+                            @break
+                            @case('scheduling')
+                                @php
+                                    $valueStatus = 75;
+                                @endphp
+
+                            @break
+                            @case('success')
+                                @php
+                                    $valueStatus = 100;
+                                @endphp
+
+                            @break
+                            @case('reject')
+                                @php
+                                    $valueStatus = 0;
+                                @endphp
+                            @break
+
+                        @endswitch
+
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>
                                 <b>{{ $submission->filing_of_matter->name }}</b>
                             </td>
-                            <td class="text-primary">{{ $submission->status }}</td>
+                            <td
+                                class="{{ $valueStatus === 100 ? 'text-success' : 'text-primary' }} {{ $valueStatus === 0 ? 'text-danger' : '' }}">
+                                {{ $submission->status }}
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped {{ $valueStatus === 100 ? 'bg-success' : '' }} {{ $valueStatus === 0 ? 'bg-danger' : '' }}"
+                                        role="progressbar" style="width: {{ $valueStatus }}%" aria-valuenow="10"
+                                        aria-valuemin="0" aria-valuemax="100">{{ $valueStatus }}%</div>
+                                </div>
+                            </td>
                             <td>{{ $submission->created_at }}</td>
                             <td>
                                 @if ($submission->status === 'proses')
@@ -208,6 +249,72 @@
                                             </div>
                                         </div>
                                     @endif
+                                @endif
+                                @if ($submission->status === 'success')
+                                    <button class="btn text-success" data-toggle="modal"
+                                        data-target="#modelSuccess-{{ $submission->id }}">
+                                        <i class="fas fa-search e fa-fw"></i>
+                                        Jadwal Sidang
+                                    </button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="modelSuccess-{{ $submission->id }}" tabindex="-1"
+                                        role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Jadwal Sidang</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="form-label-wrapper">
+                                                        <label for="name" class="form-label">No.Perkara</label>
+                                                        <input type="text" name="name" id="name"
+                                                            value="{{ $submission->number }}" class="form-input"
+                                                            readonly>
+                                                    </div>
+                                                    <div class="form-label-wrapper">
+                                                        <label for="name" class="form-label">Nama</label>
+                                                        <input type="text" name="name" id="name"
+                                                            value="{{ $submission->user->name }}" class="form-input"
+                                                            readonly>
+                                                    </div>
+                                                    <div class="form-label-wrapper">
+                                                        <label for="name" class="form-label">Tanggal</label>
+                                                        <input type="date" name="name" id="name"
+                                                            value="{{ date('Y-m-d', strtotime($submission->timetable)) }}"
+                                                            class="form-input" readonly>
+                                                    </div>
+                                                    <div class="form-label-wrapper">
+                                                        <label for="name" class="form-label">Waktu</label>
+                                                        <input type="text" name="name" id="name"
+                                                            value="{{ $submission->time }}" readonly
+                                                            class="form-input">
+                                                    </div>
+                                                    <div class="form-label-wrapper">
+                                                        <label for="name" class="form-label">Nama Ayah</label>
+                                                        <input type="text" name="name" id="name"
+                                                            value="{{ $submission->father_name }}" readonly
+                                                            class="form-input">
+                                                    </div>
+                                                    <div class="form-label-wrapper">
+                                                        <label for="name" class="form-label">Nama Tergugat</label>
+                                                        <input type="text" name="name" id="name"
+                                                            value="{{ $submission->defendant_name }}" readonly
+                                                            class="form-input">
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-outline-secondary"
+                                                        data-dismiss="modal">Tutup</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 @endif
                             </td>
                         </tr>
