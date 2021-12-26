@@ -33,6 +33,7 @@ setelah itu pergi ke foleder tempat anda ingin menyimpan source code aplikasi,bi
 - ketikkan : php artisan migrate
 - ketikkan : php artisan tinker
 - ketikkan : User::factory()->create();
+- ketikkan : filingOfMatter::factory()->create();
 - ketikkan : exit;
 - Done
 
