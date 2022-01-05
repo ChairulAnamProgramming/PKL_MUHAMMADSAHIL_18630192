@@ -17,7 +17,7 @@ class FilingOfMattersController extends Controller
     public function index()
     {
         $data['filingOfMatters'] = FilingOfMatter::orderBy('name', 'DESC')->get();
-
+        $data['title'] = '';
         if (Auth::user()->role !== 'people') :
             $data['submissions'] = Submission::orderBy('id', 'DESC')->get();
             $data['rooms'] = Room::orderBy('name', 'ASC')->get();

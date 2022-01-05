@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::group(['middleware' => 'auth:sanctum', 'verified'], function () {
     Route::get('/', [HomeController::class, 'index']);
     Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -42,7 +43,9 @@ Route::group(['middleware' => 'auth:sanctum', 'verified'], function () {
 
     Route::resource('/room', RoomController::class);
 
+    // Laporan
     Route::get('/report', [ReportController::class, 'index'])->name('report.index');
+    Route::patch('/report/{filing_of_matter}', [ReportController::class, 'filing_of_matter'])->name('report.filing_of_matter');
 });
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

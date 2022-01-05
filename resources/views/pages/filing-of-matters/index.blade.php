@@ -10,6 +10,7 @@
         {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" /> --}}
     @endpush
 
+    <?php echo $title ;?>
     <div class="card border-0 rounded">
         <div class="card-body">
             @if (Auth::user()->role === 'people')
