@@ -38,6 +38,7 @@
 
 
     <div class="container">
+        <h5 class="text-center mb-4">{!! $title !!}</h5>
         @yield('content')
         <br>
         <br>

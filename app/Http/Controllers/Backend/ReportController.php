@@ -34,8 +34,8 @@ class ReportController extends Controller
             ->where('status', $status)
             ->whereBetween('created_at', [$firstDate, $lastDate])
             ->get();
-
-        $data['title'] = filingOfMatter::find($id)->name;
+        $data['status'] = $status;
+        $data['title'] = 'Laporan ' . filingOfMatter::find($id)->name . ' tanggal ' . $firstDate . ' sampai ' . $lastDate . ' status <b>' . $status . '</b>';
         return view('pages.report.pages.filingOfMatter', $data);
     }
 }
