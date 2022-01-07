@@ -45,7 +45,7 @@
 
         <table class="ml-auto text-center text-dark">
             <tr>
-                <td>WASALASA</td>
+                <td>WASALASM</td>
             </tr>
             <tr>
                 <td>PANITERA</td>
@@ -54,10 +54,10 @@
                 <td style="height: 80px"></td>
             </tr>
             <tr>
-                <td><strong>H. HUSNAN TAPARROD, S.H.</strong></td>
+                <td><strong>H. Ahmad Ramli, S.H</strong></td>
             </tr>
             <tr>
-                <td>NIP.19690528.199203.1.001</td>
+                <td>NIP.19770524.200312.1.004</td>
             </tr>
         </table>
     </div>
