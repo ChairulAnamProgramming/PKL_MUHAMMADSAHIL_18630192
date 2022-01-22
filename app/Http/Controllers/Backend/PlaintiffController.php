@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\People;
+use App\Models\Submission;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -17,7 +18,7 @@ class PlaintiffController extends Controller
      */
     public function index()
     {
-        $data['peoples'] = People::with('user')->where('type', 'penggugat')->orderBy('id', 'DESC')->get();
+        $data['submissions'] = Submission::with('user')->orderBy('id', 'DESC')->get();
         return view('pages.plaintiff.index', $data);
     }
 
