@@ -14,19 +14,19 @@
             <main class="main users chart-page" id="skip-target">
                 <div class="container">
                     <h2 class="main-title">@yield('title')</h2>
-                    @if (session('success') ||session('error'))
-                    <div class="alert alert-{{session('success')?'primary':'danger'}}" role="alert">
-                        <strong>{{session('success')?session('success') : session('error')}}</strong>
-                    </div>
+                    @if (session('success') || session('error'))
+                        <div class="alert alert-{{ session('success') ? 'primary' : 'danger' }}" role="alert">
+                            <strong>{{ session('success') ? session('success') : session('error') }}</strong>
+                        </div>
                     @endif
                     @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
                     @endif
 
                     @yield('content')
