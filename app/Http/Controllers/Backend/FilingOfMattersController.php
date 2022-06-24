@@ -26,7 +26,7 @@ class FilingOfMattersController extends Controller
             $data['submissions'] = Submission::where('user_id', Auth::user()->id)->orderBy('id', 'DESC')->get();
         endif;
 
-        return view('pages.filing-of-matters.index', $data);
+        return view('backend.v1.pages.filing-of-matters.index', $data);
     }
 
     public function show($id)

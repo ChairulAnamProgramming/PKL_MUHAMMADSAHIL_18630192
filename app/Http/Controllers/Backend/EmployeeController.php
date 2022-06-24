@@ -18,7 +18,7 @@ class EmployeeController extends Controller
     public function index()
     {
         $data['employees'] = Employee::with('user')->orderBy('id', 'DESC')->get();
-        return view('pages.employee.index', $data);
+        return view('backend.v1.pages.employee.index', $data);
     }
 
     /**
@@ -45,6 +45,10 @@ class EmployeeController extends Controller
             'nip' => 'required|string|max:255|unique:employees',
             'position' => 'required|string|max:255',
             'golongan' => 'required|string|max:255',
+            'place_of_birth' => 'required|string|max:255',
+            'date_of_birth' => 'required|string|max:255',
+            'phone' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
         ]);
 
         $user = User::create([
@@ -59,6 +63,10 @@ class EmployeeController extends Controller
             'nip' => $request->nip,
             'position' => $request->position,
             'golongan' => $request->golongan,
+            'place_of_birth' => $request->place_of_birth,
+            'date_of_birth' => $request->date_of_birth,
+            'phone' => $request->phone,
+            'address' => $request->address,
         ]);
 
         if ($employee) :
@@ -113,6 +121,10 @@ class EmployeeController extends Controller
             'nip' => $request->nip,
             'position' => $request->position,
             'golongan' => $request->golongan,
+            'place_of_birth' => $request->place_of_birth,
+            'date_of_birth' => $request->date_of_birth,
+            'phone' => $request->phone,
+            'address' => $request->address,
         ]);
 
         if ($employee) :
@@ -135,5 +147,10 @@ class EmployeeController extends Controller
             return redirect()->back()->with('success', 'Data karyawan berhasil di hapus');
         endif;
         return redirect()->back()->with('error', 'Data karyawan gagal di hapus');
+    }
+
+    public function check(Employee $employee)
+    {
+        return $employee->with('user')->first();
     }
 }

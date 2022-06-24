@@ -11,6 +11,9 @@ use App\Http\Controllers\Backend\FilingOfMattersController;
 use App\Http\Controllers\Backend\ReportController;
 use App\Http\Controllers\Backend\RoomController;
 use App\Http\Controllers\Backend\SubmissionController;
+use App\Http\Controllers\Backend\V1\DashboardController;
+use App\Http\Controllers\Backend\V1\DataFOMController;
+use App\Http\Controllers\Backend\V1\JudgeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,16 +31,20 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => 'auth:sanctum', 'verified'], function () {
     Route::get('/', [HomeController::class, 'index']);
     Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 
+    Route::get('/check/{employee}/employee', [EmployeeController::class, 'check'])->name('employee.check');
     Route::resource('/user', UserController::class);
     Route::resource('/employee', EmployeeController::class);
+    Route::resource('/judge', JudgeController::class);
     Route::resource('/lawyer', LawyerController::class);
     Route::resource('/plaintiff', PlaintiffController::class);
     Route::resource('/defendant', DefendantController::class);
 
     Route::resource('/filing-of-matters', FilingOfMattersController::class);
     Route::resource('/filing-of-matter', FilingOfMetterController::class);
+    Route::get('/data-fom', [DataFOMController::class, 'index'])->name('data-fom.index');
 
     Route::resource('/submission', SubmissionController::class);
 

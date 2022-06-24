@@ -20,7 +20,8 @@
         <div class="sidebar-body">
             <ul class="sidebar-body-menu">
                 <li>
-                    <a href="/"><span class="icon home" aria-hidden="true"></span>Home</a>
+                    <a href="/">
+                        <span class="icon home" aria-hidden="true"></span>Dashboard</a>
                 </li>
                 <li>
                     <a class="show-cat-btn" href="##">

@@ -19,7 +19,7 @@ class PlaintiffController extends Controller
     public function index()
     {
         $data['submissions'] = Submission::with('user')->orderBy('id', 'DESC')->get();
-        return view('pages.plaintiff.index', $data);
+        return view('backend.v1.pages.plaintiff.index', $data);
     }
 
     /**

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Employee;
 use App\Models\lawyer;
+use App\Models\People;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -17,8 +19,8 @@ class LawyerController extends Controller
      */
     public function index()
     {
-        $data['lawyers'] = lawyer::with('user')->orderBy('id', 'DESC')->get();
-        return view('pages.lawyer.index', $data);
+        $data['employees'] = Employee::where('type', 'pengacara')->get();
+        return view('backend.v1.pages.lawyer.index', $data);
     }
 
     /**
@@ -41,23 +43,19 @@ class LawyerController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|max:255|unique:users',
-            'nip' => 'required|string|max:255|unique:lawyers',
+            'nip' => 'required|string|max:255',
+            'position' => 'required|string|max:255',
+            'golongan' => 'required|string|max:255',
+            'place_of_birth' => 'required|string|max:255',
+            'date_of_birth' => 'required|string|max:255',
+            'phone' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
         ]);
-
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'role' => 'lawyer',
-            'password' => Hash::make('dahaselatan')
+        $lawyer = Employee::where('nip', $request->nip)->first();
+        $lawyer->update([
+            'type' => 'pengacara'
         ]);
-
-        $employee = lawyer::create([
-            'user_id' => $user->id,
-            'nip' => $request->nip,
-        ]);
-
-        if ($employee) :
+        if ($lawyer) :
             return redirect()->back()->with('success', 'Data pengacara berhasil di simpan');
         endif;
         return redirect()->back()->with('error', 'Data pengacara gagal di simpan');
@@ -119,11 +117,13 @@ class LawyerController extends Controller
      * @param  \App\Models\lawyer  $lawyer
      * @return \Illuminate\Http\Response
      */
-    public function destroy(lawyer $lawyer)
+    public function destroy(Request $request, $id)
     {
-        $user = User::find($lawyer->user_id);
-        $user->delete();
-        if ($user) :
+        $employee = Employee::find($id);
+        $employee->update([
+            'type' => 'pegawai'
+        ]);
+        if ($employee) :
             return redirect()->back()->with('success', 'Data pengacara berhasil di hapus');
         endif;
         return redirect()->back()->with('error', 'Data pengacara gagal di hapus');

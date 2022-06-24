@@ -17,7 +17,7 @@ class FilingOfMetterController extends Controller
     public function index()
     {
         $data['filingOfMatters'] = filingOfMatter::orderBy('id', 'DESC')->get();
-        return view('pages.filing-of-matter.index', $data);
+        return view('backend.v1.pages.filing-of-matter.index', $data);
     }
 
     /**

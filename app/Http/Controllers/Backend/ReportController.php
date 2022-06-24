@@ -13,7 +13,7 @@ class ReportController extends Controller
     public function index()
     {
         $data['filingOfMatters'] = filingOfMatter::orderBy('name', 'ASC')->get();
-        return view('pages.report.index', $data);
+        return view('backend.v1.pages.report.index', $data);
     }
 
     public function filing_of_matter(Request $request, $id)
@@ -36,6 +36,6 @@ class ReportController extends Controller
             ->get();
         $data['status'] = $status;
         $data['title'] = 'Laporan ' . filingOfMatter::find($id)->name . ' tanggal ' . $firstDate . ' sampai ' . $lastDate . ' status <b>' . $status . '</b>';
-        return view('pages.report.pages.filingOfMatter', $data);
+        return view('backend.v1.pages.report.pages.filingOfMatter', $data);
     }
 }

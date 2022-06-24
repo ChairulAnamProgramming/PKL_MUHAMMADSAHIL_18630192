@@ -16,7 +16,7 @@ class RoomController extends Controller
     public function index()
     {
         $data['rooms'] = Room::all();
-        return view('pages.room.index', $data);
+        return view('backend.v1.pages.room.index', $data);
     }
 
     /**
