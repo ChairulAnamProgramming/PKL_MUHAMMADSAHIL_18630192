@@ -120,6 +120,23 @@
                             @endforeach
                         </tbody>
                     </table>
+
+                    <h4><b>Keterangan</b></h4>
+                    <ul>
+                        <li>
+                            25% = Menunggu konfirmasi admin untuk menerima permohonan
+                        </li>
+                        <li>
+                            50% = Proses Pembayaran Penggugat ke Pengadilan Agama. dengan mengupload bukti pengiriman
+                            berhasil
+                        </li>
+                        <li>
+                            75% = Pembuatan jadwal sidang oleh admin.
+                        </li>
+                        <li>
+                            100% = Penjadwalan sidang berhasil di buat, silahkan lihat jadwal sidang.
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
