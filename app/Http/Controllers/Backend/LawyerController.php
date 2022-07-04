@@ -52,6 +52,8 @@ class LawyerController extends Controller
             'address' => 'required|string|max:255',
         ]);
         $lawyer = Employee::where('nip', $request->nip)->first();
+        $data['employee_id'] = $lawyer->id;
+        $create = lawyer::create($data);
         $lawyer->update([
             'type' => 'pengacara'
         ]);
@@ -120,6 +122,7 @@ class LawyerController extends Controller
     public function destroy(Request $request, $id)
     {
         $employee = Employee::find($id);
+        lawyer::where('employee_id', $employee->id)->delete();
         $employee->update([
             'type' => 'pegawai'
         ]);

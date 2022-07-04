@@ -30,6 +30,11 @@ class CreateSubmissionsTable extends Migration
             $table->string('father_name')->nullable();
             $table->string('defendant_name')->nullable();
 
+            // Saksi
+            $table->string('saksi_1')->nullable();
+            $table->string('saksi_2')->nullable();
+            $table->string('saksi_3')->nullable();
+
             $table->enum('status', ['proses', 'reject', 'payment', 'scheduling', 'success'])->default('proses');
             $table->timestamps();
         });

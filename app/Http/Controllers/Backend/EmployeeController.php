@@ -149,8 +149,9 @@ class EmployeeController extends Controller
         return redirect()->back()->with('error', 'Data karyawan gagal di hapus');
     }
 
-    public function check(Employee $employee)
+    public function check($id)
     {
-        return $employee->with('user')->first();
+        $employee = Employee::with('user')->where('nip', $id)->first();
+        return $employee;
     }
 }

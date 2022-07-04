@@ -17,4 +17,14 @@ class Employee extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function judge()
+    {
+        return $this->hasOne(Judge::class);
+    }
+
+    public function lawyer()
+    {
+        return $this->hasOne(Lawyer::class);
+    }
 }

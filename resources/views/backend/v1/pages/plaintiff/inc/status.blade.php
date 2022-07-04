@@ -19,7 +19,7 @@
 @if ($submission->status === 'payment')
     <button class="btn bg-gray text-secondary" data-toggle="modal" data-target="#modelPayment-{{ $submission->id }}">
         <i class="fas fa-money-bill-wave-alt fa-fw"></i>
-        Bayar Pengajuan Perkara
+        Konfirmasi Pembayaran
     </button>
 
     <!-- Modal -->
@@ -33,7 +33,7 @@
                     @method('PATCH')
                     <div class="modal-header">
                         <h5 class="modal-title">
-                            Pembayaran {{ $submission->filing_of_matter->name }}
+                            Pembayaran Perkara {{ $submission->filing_of_matter->name }}
                         </h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -55,16 +55,18 @@
                         <div class="form-group">
                             <label for="proof_of_payment">Upload
                                 Bukti
-                                Pembayaran
+
                             </label>
                             <input type="hidden" name="status" value="scheduling">
                             <input type="file" name="proof_of_payment" id="proof_of_payment" class="form-input">
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Tutup</button>
-                        <button class="btn btn-primary">Bayar Pengajuan
-                            Perkara</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary"
+                            data-dismiss="modal">Tutup</button>
+                        <button class="btn btn-sm btn-primary">
+                            Konfirmasi
+                        </button>
                     </div>
                 </form>
             </div>
@@ -187,7 +189,7 @@
         </div>
     @endif
     @if ($submission->status === 'payment')
-        <button class="btn text-warning">
+        <button class="btn btn-sm bg-gray text-warning">
             <i class="fas fa-exclamation-triangle fa-fw"></i>
             Menunggu Pembayaran Penggugat
         </button>
@@ -234,24 +236,26 @@
                             <div class="form-group">
                                 <label for="hakim">Hakim</label>
                                 @php
-                                    $hakim = App\Models\Employee::where('type', 'hakim')->get();
+                                    $hakim = App\Models\Judge::all();
                                 @endphp
                                 <select name="hakim[]" id="hakim" class="form-control selectpicker" multiple>
+                                    <option value=""></option>
                                     @foreach ($hakim as $hak)
                                         <option value="{{ $hak->id }}">
-                                            {{ $hak->user->name }}</option>
+                                            {{ @$hak->employee->user->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="pengacara">Pengacara</label>
                                 @php
-                                    $pengacara = App\Models\Employee::where('type', 'pengacara')->get();
+                                    $pengacara = App\Models\lawyer::all();
                                 @endphp
-                                <select name="pengacara" id="pengacara" class="form-control selectpicker">
+                                <select name="pengacara[]" id="pengacara" class="form-control selectpicker">
+                                    <option value=""></option>
                                     @foreach ($pengacara as $pengac)
                                         <option value="{{ $pengac->id }}">
-                                            {{ $pengac->user->name }}</option>
+                                            {{ @$pengac->employee->user->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -265,8 +269,9 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="father_name">Nama
-                                    Ayah</label>
+                                <label for="father_name">
+                                    Nama Ayah
+                                </label>
                                 <input type="text" class="form-control" name="father_name" id="father_name" valu>
                             </div>
                             <div class="form-group">
@@ -275,6 +280,35 @@
                                 </label>
                                 <input type="text" class="form-control" name="defendant_name" id="defendant_name"
                                     placeholder="Isi nama tergugat setelah itu isikan BIN/BINTI cth: user bin user">
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-4">
+                                    <div class="form-group">
+                                        <label for="saksi_1">
+                                            Saksi 1
+                                        </label>
+                                        <input type="text" class="form-control" name="saksi_1" id="saksi_1"
+                                            valu>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <div class="form-group">
+                                        <label for="saksi_2">
+                                            Saksi 2
+                                        </label>
+                                        <input type="text" class="form-control" name="saksi_2" id="saksi_2"
+                                            valu>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <div class="form-group">
+                                        <label for="saksi_3">
+                                            Saksi 3
+                                        </label>
+                                        <input type="text" class="form-control" name="saksi_3" id="saksi_3"
+                                            valu>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -291,7 +325,8 @@
     @endif
 @endif
 @if ($submission->status === 'success')
-    <button class="btn text-success" data-toggle="modal" data-target="#modelSuccess-{{ $submission->id }}">
+    <button class="btn bg-gray btn-sm text-success" data-toggle="modal"
+        data-target="#modelSuccess-{{ $submission->id }}">
         <i class="fas fa-search e fa-fw"></i>
         Jadwal Sidang
     </button>
@@ -299,7 +334,7 @@
     <!-- Modal -->
     <div class="modal fade" id="modelSuccess-{{ $submission->id }}" tabindex="-1" role="dialog"
         aria-labelledby="modelTitleId" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Jadwal Sidang</h5>
@@ -308,40 +343,99 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group">
-                        <label for="name">No.Perkara</label>
-                        <input type="text" class="form-control" name="name" id="name"
-                            value="{{ $submission->number }}" class="form-input" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label for="name">Nama</label>
-                        <input type="text" class="form-control" name="name" id="name"
-                            value="{{ $submission->user->name }}" class="form-input" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label for="name">Tanggal</label>
-                        <input type="date" name="name" id="name"
-                            value="{{ date('Y-m-d', strtotime($submission->timetable)) }}" class="form-input"
-                            readonly>
-                    </div>
-                    <div class="form-group">
-                        <label for="name">Waktu</label>
-                        <input type="text" class="form-control" name="name" id="name"
-                            value="{{ $submission->time }}" readonly class="form-input">
-                    </div>
-                    <div class="form-group">
-                        <label for="name">Nama Ayah</label>
-                        <input type="text" class="form-control" name="name" id="name"
-                            value="{{ $submission->father_name }}" readonly class="form-input">
-                    </div>
-                    <div class="form-group">
-                        <label for="name">Nama Tergugat</label>
-                        <input type="text" class="form-control" name="name" id="name"
-                            value="{{ $submission->defendant_name }}" readonly class="form-input">
-                    </div>
+                    <table class="table-sm">
+                        <tr>
+                            <td>No.Perkara</td>
+                            <td>:</td>
+                            <td>
+                                <b>{{ $submission->number }}</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Nama Penggugat</td>
+                            <td>:</td>
+                            <td>
+                                <b>{{ $submission->user->name }}</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Hakim</td>
+                            <td>:</td>
+                            <td>
+                                @foreach (@$submission->judges as $judge)
+                                    <b class="d-block">
+                                        {{ @$judge->employee->user->name }}
+                                    </b>
+                                @endforeach
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Pengacara</td>
+                            <td>:</td>
+                            <td>
+                                @foreach (@$submission->lawyers as $lawyer)
+                                    <b class="d-block">
+                                        {{ @$lawyer->employee->user->name }}
+                                    </b>
+                                @endforeach
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Ruangan</td>
+                            <td>:</td>
+                            <td>
+                                @foreach (@$submission->rooms as $room)
+                                    <b class="d-block">
+                                        {{ @$room->name }}
+                                    </b>
+                                @endforeach
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Tanggal & Jam</td>
+                            <td>:</td>
+                            <td>
+                                <b class="text-primary">
+                                    {{ date('Y-m-d', strtotime($submission->timetable)) }}
+                                    -
+                                    {{ $submission->time }}
+                                </b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Nama Ayah</td>
+                            <td>:</td>
+                            <td>
+                                <b>
+                                    {{ $submission->father_name }}
+                                </b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Nama Tergugat</td>
+                            <td>:</td>
+                            <td>
+                                <b>
+                                    {{ $submission->defendant_name }}
+                                </b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Saksi</td>
+                            <td>:</td>
+                            <td>
+                                <ul>
+                                    <li>{{ $submission->saksi_1 }}</li>
+                                    <li>{{ $submission->saksi_2 }}</li>
+                                    <li>{{ $submission->saksi_3 }}</li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Tutup</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary"
+                        data-dismiss="modal">Tutup</button>
                 </div>
             </div>
         </div>

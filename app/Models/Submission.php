@@ -21,6 +21,11 @@ class Submission extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function judges()
+    {
+        return $this->belongsToMany(Judge::class);
+    }
+
     public function lawyers()
     {
         return $this->belongsToMany(Lawyer::class);

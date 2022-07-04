@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\V1;
 
 use App\Http\Controllers\Controller;
 use App\Models\Employee;
+use App\Models\Judge;
 use Illuminate\Http\Request;
 
 class JudgeController extends Controller
@@ -27,6 +28,8 @@ class JudgeController extends Controller
             'address' => 'required|string|max:255',
         ]);
         $judge = Employee::where('nip', $request->nip)->first();
+        $data['employee_id'] = $judge->id;
+        $create = Judge::create($data);
         $judge->update([
             'type' => 'hakim'
         ]);
@@ -39,6 +42,7 @@ class JudgeController extends Controller
     public function destroy(Request $request, $id)
     {
         $employee = Employee::find($id);
+        $create = Judge::where('employee_id', $employee->id)->delete();
         $employee->update([
             'type' => 'pegawai'
         ]);
