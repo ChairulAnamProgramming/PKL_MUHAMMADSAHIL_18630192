@@ -19,31 +19,43 @@ class FilingOfMatterFactory extends Factory
             [
                 'name' => 'Perceraian',
                 'price' => '600000',
+                'name_rek' => 'Bank Kalsel (BPD)',
+                'rek' => '0000612345678',
                 'description' => 'lorem ipsum'
             ],
             [
                 'name' => 'Ahli Waris',
                 'price' => '300000',
+                'name_rek' => 'Bank Kalsel (BPD)',
+                'rek' => '0000612345678',
                 'description' => 'lorem ipsum'
             ],
             [
                 'name' => 'Wasiat',
                 'price' => '200000',
+                'name_rek' => 'Bank Kalsel (BPD)',
+                'rek' => '0000612345678',
                 'description' => 'lorem ipsum'
             ],
             [
                 'name' => 'Ekonomi Syariah',
                 'price' => '100000',
+                'name_rek' => 'Bank Kalsel (BPD)',
+                'rek' => '0000612345678',
                 'description' => 'lorem ipsum'
             ],
             [
                 'name' => 'Wakaf',
                 'price' => '250000',
+                'name_rek' => 'Bank Kalsel (BPD)',
+                'rek' => '0000612345678',
                 'description' => 'lorem ipsum'
             ],
             [
                 'name' => 'Infaq dan Sedeqah',
                 'price' => '500000',
+                'name_rek' => 'Bank Kalsel (BPD)',
+                'rek' => '0000612345678',
                 'description' => 'lorem ipsum'
             ],
         ];
@@ -54,6 +66,8 @@ class FilingOfMatterFactory extends Factory
                 [
                     'icon' => 'folder.png',
                     'name' => $default[$i]['name'],
+                    'name_rek' => $default[$i]['name_rek'],
+                    'rek' => $default[$i]['rek'],
                     'price' => $default[$i]['price'],
                     'description' => $default[$i]['description'],
                 ]

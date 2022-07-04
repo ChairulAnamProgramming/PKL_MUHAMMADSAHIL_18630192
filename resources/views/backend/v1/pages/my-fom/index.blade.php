@@ -41,15 +41,11 @@
                                     <i class="fas fa-cog fa-fw"></i>
                                 </th>
                                 <th>Tanggal</th>
+                                <th>Perkara</th>
                                 <th>No.Perkara</th>
-                                <th>Status</th>
-                                <th>Nama & Foto</th>
-                                <th>Email</th>
+                                <th>Nama</th>
                                 <th>NIK</th>
-                                <th>Alamat</th>
-                                <th>Tempat & Tanggal Lahir</th>
                                 <th>Jenis Kelamin</th>
-                                <th>Telpon</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white">
@@ -85,39 +81,41 @@
                                         @endphp
                                     @break
                                 @endswitch
-                                <tr>
+                                <tr class="bg-gray">
                                     <td>{{ $loop->iteration }}</td>
                                     <td>
+                                        @include('backend.v1.pages.plaintiff.inc.status')
                                     </td>
                                     <td>{{ $submission->created_at }}</td>
+                                    <td>
+                                        <b>
+                                            {{ @$submission->filing_of_matter->name }}
+                                        </b>
+                                    </td>
                                     <td>{{ $submission->number }}</td>
-                                    <td
-                                        class="{{ $valueStatus === 100 ? 'text-success' : 'text-primary' }} {{ $valueStatus === 0 ? 'text-danger' : '' }}">
-                                        {{ $submission->status }}
+
+                                    <td>
+                                        <label class="users-table__checkbox">
+                                            <div class="categories-table-img">
+                                                {{ @$submission->user->name }}
+                                            </div>
+                                        </label>
+                                    </td>
+                                    <td>{{ @$submission->user->people->nik }}</td>
+                                    <td>{{ @$submission->user->people->gender == 'male' ? 'Laki-laki' : 'Perempuan' }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td colspan="8"
+                                        class="{{ $valueStatus === 100 ? 'text-success' : 'text-primary' }} {{ $valueStatus === 0 ? 'text-danger' : '' }} text-capitalize">
+                                        Status {{ $submission->status }}
                                         <div class="progress">
                                             <div class="progress-bar progress-bar-striped {{ $valueStatus === 100 ? 'bg-success' : '' }} {{ $valueStatus === 0 ? 'bg-danger' : '' }}"
                                                 role="progressbar" style="width: {{ $valueStatus }}%" aria-valuenow="10"
                                                 aria-valuemin="0" aria-valuemax="100">{{ $valueStatus }}%</div>
                                         </div>
                                     </td>
-                                    <td>
-                                        <label class="users-table__checkbox">
-                                            <div class="categories-table-img">
-                                                <picture>
-                                                    <img src="{{ $submission->user->profile_photo_url }}" alt=""
-                                                        class="img-fluid rounded">
-                                                </picture>
-                                                {{ $submission->user->name }}
-                                            </div>
-                                        </label>
-                                    </td>
-                                    <td>{{ $submission->user->email }}</td>
-                                    <td>{{ $submission->user->people->nik }}</td>
-                                    <td>{{ $submission->user->people->address }}</td>
-                                    <td>{{ $submission->user->people->place_of_birth . ', ' . date('d-m-Y', strtotime($submission->user->people->date_of_birth)) }}
-                                    </td>
-                                    <td>{{ $submission->user->people->gender }}</td>
-                                    <td>{{ $submission->user->people->phone }}</td>
                                 </tr>
                             @endforeach
                         </tbody>

@@ -426,10 +426,10 @@
                         <!-- Modal -->
                         <div class="modal fade " id="modelId-{{ $filingOfMatter->id }}" tabindex="-1" role="dialog"
                             aria-labelledby="modelTitleId" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
+                            <div class="modal-dialog modal-lg" role="document">
                                 <form action="{{ route('submission.store') }}" method="POST">
                                     @csrf
-                                    <div class="modal-content border-0">
+                                    <div class="modal-content  border-0">
                                         <div class="modal-header border-0">
                                             <h5 class="modal-title">{{ $filingOfMatter->name }}</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -437,20 +437,19 @@
                                             </button>
                                         </div>
                                         <div class="modal-body text-secondary">
-                                            <h5 class="text-danger">
-                                                Biaya : Rp.{{ number_format($filingOfMatter->price, 2, ',', '.') }}
-                                            </h5>
-                                            <br>
                                             <h6 class="text-dark">Persyaratan yang harus di bawa :</h6>
-                                            <br>
                                             {!! $filingOfMatter->description !!}
+                                            <br>
+                                            <h5 class="text-danger">
+                                                Total Biaya : Rp.{{ number_format($filingOfMatter->price, 2, ',', '.') }}
+                                            </h5>
                                             <input type="hidden" name="filing_of_matter_id"
                                                 value="{{ $filingOfMatter->id }}">
                                         </div>
                                         <div class="modal-footer border-0">
-                                            <button type="button" class="btn btn-outline-secondary"
+                                            <button type="button" class="btn btn-sm btn-outline-secondary"
                                                 data-dismiss="modal">Tutup</button>
-                                            <button class="btn btn-primary">
+                                            <button class="btn btn-sm btn-primary">
                                                 Ajukan
                                             </button>
                                         </div>

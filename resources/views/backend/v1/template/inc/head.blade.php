@@ -25,4 +25,5 @@
 
 <!-- CSS Just for demo purpose, don't include it in your project -->
 <link rel="stylesheet" href="{{ url('template/backend') }}/css/demo.css">
+<link rel="stylesheet" href="{{ url('template/backend') }}/css/style.css">
 @stack('after-css')

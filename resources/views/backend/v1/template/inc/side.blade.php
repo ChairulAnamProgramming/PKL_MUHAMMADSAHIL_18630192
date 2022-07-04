@@ -84,19 +84,29 @@
                         </a>
                     </li>
                 @endif
-                <li class="nav-item">
-                    <a href="{{ route('filing-of-matters.index') }}">
-                        <i class="fas fa-hand-holding"></i>
-                        <p>Pengajuan Perkara</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('data-fom.index') }}">
-                        <i class="fas fa-table"></i>
-                        <p>Perkara Saya</p>
-                        <span class="badge badge-danger">0</span>
-                    </a>
-                </li>
+                @if (Auth::user()->role == 'people')
+                    <li class="nav-item">
+                        <a href="{{ route('filing-of-matters.index') }}">
+                            <i class="fas fa-hand-holding"></i>
+                            <p>Pengajuan Perkara</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('data-fom.index') }}">
+                            <i class="fas fa-table"></i>
+                            <p>Perkara Saya</p>
+                            @php
+                                $count = Auth::user()
+                                    ->submissions()
+                                    ->where('status', '!=', 'success')
+                                    ->count();
+                            @endphp
+                            <span class="badge badge-danger">
+                                {{ $count }}
+                            </span>
+                        </a>
+                    </li>
+                @endif
                 @if (Auth::user()->role == 'admin')
                     <li class="nav-item">
                         <a href="{{ route('report.index') }}">

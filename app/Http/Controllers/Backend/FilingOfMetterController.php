@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\filingOfMatter;
 use Illuminate\Http\Request;
-use File;
+use Illuminate\Support\Facades\File;
 
 class FilingOfMetterController extends Controller
 {
@@ -41,6 +41,8 @@ class FilingOfMetterController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'price' => 'required|integer',
+            'name_rek' => 'required',
+            'rek' => 'required',
             'description' => 'required',
         ]);
 
@@ -54,13 +56,9 @@ class FilingOfMetterController extends Controller
         else :
             $icon = 'default.png';
         endif;
-
-        $filingOfMatter = filingOfMatter::create([
-            'name' => $request->name,
-            'price' => $request->price,
-            'description' => $request->description,
-            'icon' => $icon,
-        ]);
+        $data = $request->all();
+        $data['icon'] = $icon;
+        $filingOfMatter = filingOfMatter::create($data);
 
         if ($filingOfMatter) :
             return redirect()->back()->with('success', 'Jenis Perkara berhasil di simpan');
@@ -101,6 +99,8 @@ class FilingOfMetterController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'price' => 'required|integer',
+            'name_rek' => 'required',
+            'rek' => 'required',
             'description' => 'required',
         ]);
 
@@ -113,13 +113,9 @@ class FilingOfMetterController extends Controller
         else :
             $icon = $filingOfMatter->icon;
         endif;
-
-        $filingOfMatter->update([
-            'name' => $request->name,
-            'price' => $request->price,
-            'description' => $request->description,
-            'icon' => $icon,
-        ]);
+        $data = $request->all();
+        $data['icon'] = $icon;
+        $filingOfMatter->update($data);
 
         if ($filingOfMatter) :
             return redirect()->back()->with('success', 'Jenis Perkara berhasil di perbarui');

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Employee;
 use App\Models\People;
+use App\Models\Room;
 use App\Models\Submission;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -19,6 +21,7 @@ class PlaintiffController extends Controller
     public function index()
     {
         $data['submissions'] = Submission::with('user')->orderBy('id', 'DESC')->get();
+        $data['rooms'] = Room::orderBy('name', 'ASC')->get();
         return view('backend.v1.pages.plaintiff.index', $data);
     }
 

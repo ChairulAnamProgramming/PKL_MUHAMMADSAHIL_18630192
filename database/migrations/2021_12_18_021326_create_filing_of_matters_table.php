@@ -17,6 +17,8 @@ class CreateFilingOfMattersTable extends Migration
             $table->id();
             $table->text('icon');
             $table->string('name');
+            $table->string('name_rek');
+            $table->string('rek');
             $table->double('price');
             $table->longtext('description');
             $table->timestamps();

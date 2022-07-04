@@ -34,7 +34,7 @@ Route::group(['middleware' => 'auth:sanctum', 'verified'], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 
-    Route::get('/check/{employee}/employee', [EmployeeController::class, 'check'])->name('employee.check');
+    Route::get('/check/{employee:nip}/employee', [EmployeeController::class, 'check'])->name('employee.check');
     Route::resource('/user', UserController::class);
     Route::resource('/employee', EmployeeController::class);
     Route::resource('/judge', JudgeController::class);
