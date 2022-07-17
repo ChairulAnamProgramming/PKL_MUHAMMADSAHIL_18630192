@@ -1,7 +1,13 @@
 @extends('backend.v1.template.index')
 
 @section('title', 'List Laporan')
-
+@push('after-css')
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta3/css/bootstrap-select.min.css">
+@endpush
+@push('after-js')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta3/js/bootstrap-select.min.js"></script>
+@endpush
 @section('content')
 
 
@@ -18,7 +24,6 @@
                                     {{ $filingOfMatter->name }}</a>
                             </li>
 
-                            <!-- Modal -->
                             <div class="modal fade" id="modelId-{{ $filingOfMatter->id }}" tabindex="-1" role="dialog"
                                 aria-labelledby="modelTitleId" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
@@ -51,14 +56,27 @@
                                                     <label for="lastDate" class="form-label">
                                                         Status
                                                     </label>
-                                                    <select type="date" name="status" id="status"
-                                                        value="{{ date('Y-m-d', strtotime('+30 days')) }}"
-                                                        class="form-control">
+                                                    <select name="status" id="status" class="form-control">
                                                         <option value="proses">Proses</option>
                                                         <option value="reject">Ditolak</option>
                                                         <option value="payment">Proses Pembayaran</option>
                                                         <option value="scheduling">Proses Penjadwalan</option>
                                                         <option value="success">Selesai</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="employee_id" class="form-label">
+                                                        Yang Menandatangani Laporan
+                                                    </label>
+                                                    <select name="employee_id" id="employee_id"
+                                                        class="form-control selectpicker border" data-live-search="true">
+                                                        @foreach ($employees as $employee)
+                                                            <optgroup label="{{ $employee->position }}">
+                                                                <option value="{{ $employee->id }}">
+                                                                    {{ $employee->user->name }}
+                                                                </option>
+                                                            </optgroup>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                             </div>

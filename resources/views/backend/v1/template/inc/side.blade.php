@@ -80,7 +80,7 @@
                     <li class="nav-item">
                         <a href="{{ route('plaintiff.index') }}">
                             <i class="fas fa-users"></i>
-                            <p>Penggugat</p>
+                            <p>Laporan Penggugat</p>
                         </a>
                     </li>
                 @endif

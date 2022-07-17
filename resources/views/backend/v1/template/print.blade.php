@@ -45,21 +45,21 @@
 
         <table class="ml-auto text-center text-dark">
             <tr>
-                <td>WASALASM</td>
+                {{-- <td>WASALASM</td> --}}
             </tr>
             <tr>
-                <td>PANITERA</td>
+                <td class="text-uppercase">{{ $employee->position }}</td>
             </tr>
             <tr>
                 <td style="height: 80px">
-                    {!! DNS2D::getBarcodeSVG('H. Ahmad Ramli, S.H', 'QRCODE', 4, 4) !!}
+                    {!! DNS2D::getBarcodeSVG($employee->user->name, 'QRCODE', 4, 4) !!}
                 </td>
             </tr>
             <tr>
-                <td><strong>H. Ahmad Ramli, S.H</strong></td>
+                <td><strong>{{ $employee->user->name }}</strong></td>
             </tr>
             <tr>
-                <td>NIP.19770524.200312.1.004</td>
+                <td>NIP.{{ $employee->nip }}</td>
             </tr>
         </table>
     </div>
